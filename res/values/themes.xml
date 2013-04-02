@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="MyCustomTheme" parent="android:style/Theme.Light">
+       
+        <item name="android:colorBackgroundCacheHint">#00000000</item>
+        <item name="android:textColor">#2c2929</item>
+    </style>
+
+</resources>

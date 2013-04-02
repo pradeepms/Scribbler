@@ -1,0 +1,6 @@
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Light" />
+    <color name="border">#c5c4c4</color>
+
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="my_custom_color">#1e1e1b</color>
+    <color name="Separator">#a6b3ca</color>
+    <color name="BackgroundLight">#dbe4f3</color>
+    <color name="HeaderBackground">#627595</color>
+    <color name="ButtonBackground">#838e9e</color>
+    <color name="ButtonBackgroundShadow">#404a5b</color>
+    <color name="divider">#8F9194</color>
+
+</resources>
