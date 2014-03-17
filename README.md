@@ -1,7 +1,5 @@
 #Scribbler
 
-Fifth project in Android platform
-##DESCRIPTION:
 Simple notes taking app. Stores in database for permanent use.
 
 ## Screen Shots
