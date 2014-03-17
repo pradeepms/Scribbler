@@ -55,6 +55,15 @@
             android:layout_height="match_parent"
             android:gravity="right"
             android:orientation="horizontal" >
+            
+            
+             <ImageButton
+                android:id="@+id/search"
+                android:layout_width="50dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/header_button"
+                android:minWidth="40dp"
+                android:src="@drawable/ic_menu_search" />
 
             <ImageButton
                 android:id="@+id/add"
@@ -65,6 +74,11 @@
                 android:src="@drawable/ic_menu_add" />
         </LinearLayout>
     </LinearLayout>
+    <EditText 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchBox"
+        android:visibility="gone"/>
 
     <ListView
         android:id="@+id/list"

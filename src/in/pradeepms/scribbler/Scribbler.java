@@ -1,16 +1,18 @@
 package in.pradeepms.scribbler;
 
+
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Typeface;
-
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -25,6 +27,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.FilterQueryProvider;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,8 +38,8 @@ public class Scribbler extends Activity implements OnItemClickListener,
 	Cursor model;
 	RestaurantAdapter adapter = null;
 	NotesHelper helper;
-	EditText name, address = null;
-	ImageButton add;
+	EditText name, address, searchBox = null;
+	ImageButton add,search;
 	ListView list;
 	int count = 0;
 	public final static long ID = 1;
@@ -53,9 +57,13 @@ public class Scribbler extends Activity implements OnItemClickListener,
 		helper = new NotesHelper(this);
 
 		add = (ImageButton) findViewById(R.id.add);
+		search = (ImageButton) findViewById(R.id.search);
+		searchBox = (EditText) findViewById(R.id.searchBox);
+
 		list = (ListView) findViewById(R.id.list);
 
 		add.setOnClickListener(this);
+		search.setOnClickListener(this);
 
 		model = helper.AllRecord();
 		startManagingCursor(model);
@@ -64,6 +72,28 @@ public class Scribbler extends Activity implements OnItemClickListener,
 		list.setOnItemClickListener(this);
 		list.setOnItemLongClickListener(this);
 		registerForContextMenu(list);
+		
+		searchBox.addTextChangedListener(new TextWatcher() {
+			
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				
+				
+			}
+			
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				Scribbler.this.adapter.getFilter().filter(s.toString());
+			}
+		});
+		
+
 
 	}
 
@@ -79,6 +109,7 @@ public class Scribbler extends Activity implements OnItemClickListener,
 		public RestaurantAdapter(Cursor c) {
 			super(Scribbler.this, c);
 		}
+
 
 		@Override
 		public void bindView(View row, Context ctxt, Cursor c) {
@@ -116,16 +147,12 @@ public class Scribbler extends Activity implements OnItemClickListener,
 			}
 
 			public void populateFrom(Cursor c, NotesHelper helper) {
-				// TODO Auto-generated method stub
-				Typeface droid = Typeface.createFromAsset(getAssets(),
-						"droid_sans.ttf");
 
 				/*
-				 * int count = c.getPosition() + 1; String no =
-				 * Integer.toString(count); date.setText("");
-				 * name.setTypeface(droid);
-				 * icon.setImageResource(R.drawable.cal);
+				 * Typeface droid = Typeface.createFromAsset(getAssets(),
+				 * "droid_sans.ttf");
 				 */
+
 				name.setText(helper.getTitle(c));
 				listDate.setText(helper.getTime(c));
 
@@ -135,18 +162,6 @@ public class Scribbler extends Activity implements OnItemClickListener,
 
 	}
 
-	/*
-	 * @Override public boolean onCreateOptionsMenu(Menu menu) { // TODO
-	 * Auto-generated method stub new
-	 * MenuInflater(this).inflate(R.menu.activity_main, menu); return
-	 * super.onCreateOptionsMenu(menu); }
-	 * 
-	 * @Override public boolean onOptionsItemSelected(MenuItem item) { // TODO
-	 * Auto-generated method stub if (item.getItemId() == R.id.add) { Intent i =
-	 * new Intent(Scribbler.this, AddNote.class); startActivity(i); }
-	 * 
-	 * return super.onOptionsItemSelected(item); }
-	 */
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long id) {
 		// TODO Auto-generated method stub
 		Intent i = new Intent(Scribbler.this, AddNote.class);
@@ -160,18 +175,20 @@ public class Scribbler extends Activity implements OnItemClickListener,
 
 		switch (v.getId()) {
 		case R.id.add:
+			Log.d("Serach button", "clicked");
 			Intent i = new Intent(Scribbler.this, AddNote.class);
 			startActivity(i);
 
 			break;
-		/*
-		 * case R.id.:
-		 * 
-		 * 
-		 * futher buttons
-		 * 
-		 * break;
-		 */
+		
+		  case R.id.search:
+			  Log.d("Serach button", "clicked");
+				searchBox.setVisibility(View.VISIBLE);
+		  
+		 
+		  
+		  break;
+		 
 
 		}
 
@@ -229,5 +246,6 @@ public class Scribbler extends Activity implements OnItemClickListener,
 		}
 		return true;
 	}
+	
 
 }
